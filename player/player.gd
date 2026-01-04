@@ -4,12 +4,15 @@ extends CharacterBody2D
 @onready var sprite = $Sprite2D;
 @onready var animationPlayer = $AnimationPlayer
 @onready var debugLabel = $DebugLabel
+@onready var soundPlayer = $SoundPlayer
+
 
 
 
 @export var GRAVITY = 300;
 @export var LINEAR_SPEED = 100;
-@export var JUMP = -100;
+@export var JUMP = -120;
+@export var DOUBLE_JUMP_BOOST = -30
 @export var MAX_FALL = 400;
 
 
@@ -69,10 +72,16 @@ func getInput() -> void:
         if sprite.flip_h:
             sprite.flip_h = false;
         velocity.x = LINEAR_SPEED
-    
+    if !is_on_floor():
+        if Input.is_action_just_pressed("fall"):
+            velocity.y = MAX_FALL;
     if Input.is_action_just_pressed("jump") and jumpCount < 2:
-        velocity.y = JUMP;
-        jumpCount +=1;
+        SoundManager.play_sound(soundPlayer, SoundManager.SOUND_JUMP)
+        if jumpCount == 1:
+            velocity.y = JUMP+DOUBLE_JUMP_BOOST
+        else :
+            velocity.y = JUMP;
+        jumpCount +=1
     velocity.y = clampf(velocity.y, velocity.y, MAX_FALL);
         
 
@@ -91,7 +100,11 @@ func _physics_process(delta: float) -> void:
     move_and_slide();
     if is_on_floor():
         jumpCount = 0;
+    
+    var prevState = state;
     setState()
+    if prevState == PLAYER_STATES.FALLING and state == PLAYER_STATES.IDLE:
+        SoundManager.play_sound(soundPlayer, SoundManager.SOUND_LAND)
     setAnimation()
     updateDebugLabel()
     
