@@ -3,6 +3,9 @@ extends CharacterBody2D
 
 @onready var sprite = $Sprite2D;
 @onready var animationPlayer = $AnimationPlayer
+@onready var debugLabel = $DebugLabel
+
+
 
 @export var GRAVITY = 300;
 @export var LINEAR_SPEED = 100;
@@ -90,5 +93,16 @@ func _physics_process(delta: float) -> void:
         jumpCount = 0;
     setState()
     setAnimation()
+    updateDebugLabel()
     
 
+
+
+func updateDebugLabel():
+    var debugStr =  "velocity %s %s \nfloor %s \n%s" % [
+                        velocity.x , velocity.y,
+                        is_on_floor(),
+                        PLAYER_STATES.keys()[state]
+                    ]
+    debugLabel.text = debugStr;
+    
