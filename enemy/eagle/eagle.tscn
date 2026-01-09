@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3w2yh2s1jjvi"]
+
+[ext_resource type="PackedScene" uid="uid://3jnbr0va4622" path="res://enemy/enemy_base.tscn" id="1_riskr"]
+[ext_resource type="Texture2D" uid="uid://cnbti304usfk7" path="res://assets/enemies/eagle/eagle-attack.png" id="2_iggek"]
+[ext_resource type="Script" uid="uid://bm1msjm66qpko" path="res://enemy/eagle/eagle.gd" id="2_sb8w0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb8w0"]
+atlas = ExtResource("2_iggek")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cb5y"]
+atlas = ExtResource("2_iggek")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1jgi"]
+atlas = ExtResource("2_iggek")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ac0gm"]
+atlas = ExtResource("2_iggek")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f3rfi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb8w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cb5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1jgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ac0gm")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iggek"]
+
+[node name="Eagle" instance=ExtResource("1_riskr")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("2_sb8w0")
+EAGLE_FLY_SPEED = Vector2(75, 50)
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_f3rfi")
+animation = &"fly"
+frame_progress = 0.8516734
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_iggek")
+
+[node name="DirectionTimer" type="Timer" parent="." index="3"]
+wait_time = 3.0
+
+[node name="DetectPlayerRayCast" type="RayCast2D" parent="." index="4"]
+target_position = Vector2(0, 200)
+collision_mask = 2
+
+[connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
