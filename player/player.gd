@@ -8,6 +8,7 @@ class_name Player
 @onready var soundPlayer = $SoundPlayer
 @onready var rayCastWallLeft = $RayCastWallLeft
 @onready var rayCastWallRight = $RayCastWallRight
+@onready var gun = $PlayerGun
 
 
 
@@ -75,6 +76,10 @@ func doubleJump(jumpBoost = DOUBLE_JUMP_BOOST):
 		velocity.y = JUMP + jumpBoost;
 	
 
+func shoot():
+	var dir = Vector2.LEFT if sprite.flip_h else Vector2.RIGHT
+	gun.shoot(dir)
+
 
 func getInput() -> void:
 	velocity.x = 0;
@@ -86,6 +91,9 @@ func getInput() -> void:
 		if sprite.flip_h:
 			sprite.flip_h = false;
 		velocity.x += LINEAR_SPEED
+	
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
 
 
 	if is_on_floor() and Input.is_action_pressed("jump") :

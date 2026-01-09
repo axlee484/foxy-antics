@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqieted5khywp"]
+[gd_scene load_steps=12 format=3 uid="uid://bqieted5khywp"]
 
 [ext_resource type="Texture2D" uid="uid://85iiebstf4s5" path="res://assets/player/player.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://b150v21o6m4x4" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="PackedScene" uid="uid://nt7uwlqph4at" path="res://gun/playerGun/player_gun.tscn" id="3_g1dw6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oul6g"]
 
@@ -157,3 +158,6 @@ collision_mask = 4
 position = Vector2(-1, 5)
 scale = Vector2(0.71999943, 0.7199997)
 shape = SubResource("CapsuleShape2D_oul6g")
+
+[node name="PlayerGun" parent="." instance=ExtResource("3_g1dw6")]
+SPEED = 300

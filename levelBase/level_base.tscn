@@ -270,4 +270,4 @@ position = Vector2(653, -343)
 position = Vector2(484, -316)
 
 [node name="Player" parent="." instance=ExtResource("2_ggfnc")]
-position = Vector2(99, -131)
+position = Vector2(81, -130)

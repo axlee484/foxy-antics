@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://3mo2j7fyupuc"]
+
+[ext_resource type="PackedScene" uid="uid://bkgh7dnitbbak" path="res://gun/gun_base.tscn" id="1_w0efx"]
+
+[node name="EnemyGun" instance=ExtResource("1_w0efx")]
+BULLET_TYPE = 1

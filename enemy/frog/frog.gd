@@ -10,10 +10,15 @@ var isVisibleOnScreen = false
 var isJumping = false
 var canJump = false
 
+
 func startTimer():
 	var randomTimeOut = randf_range(FROG_JUMP_TIME.x, FROG_JUMP_TIME.y)
 	timer.wait_time = randomTimeOut
 	timer.start()
+
+func takeDamage():
+	health -= 1
+	print("take damage frog, health: ", health)
 
 
 func _ready() -> void:

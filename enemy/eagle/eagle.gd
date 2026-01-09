@@ -10,6 +10,11 @@ extends EnemyBase
 
 var isVisibleOnScreen = false
 
+
+func takeDmage():
+    print("take damage eagle")
+
+
 func seePlayer():
     if !isVisibleOnScreen:
         return
@@ -38,7 +43,6 @@ func flyToPlayer():
 
 func _physics_process(_delta: float) -> void:
     super._physics_process(_delta)
-    print(global_position)
     move_and_slide()
 
 

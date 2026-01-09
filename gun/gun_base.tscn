@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkgh7dnitbbak"]
+
+[ext_resource type="Script" uid="uid://du54qt7nvy72u" path="res://gun/gun_base.gd" id="1_05ngj"]
+
+[node name="GunBase" type="Node2D"]
+script = ExtResource("1_05ngj")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

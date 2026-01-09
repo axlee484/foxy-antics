@@ -8,6 +8,9 @@ var floorRayCastDistance = 20
 
 
 
+func takeDmage():
+	print("take damage snail")
+
 
 func _ready():
 	super._ready()
