@@ -1,7 +1,9 @@
 extends Node2D
 
+class_name  BulletBase
 
 @export var MAX_LIFE_TIME = 10
+@export var DAMAGE: float = 1
 var speed: float
 var direction: Vector2 = Vector2.RIGHT
 var lifeTime = 0;

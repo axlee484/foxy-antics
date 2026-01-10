@@ -9,6 +9,7 @@ class_name  GunBase
 
 
 @onready var timer: Timer = $Timer
+@onready var gunSoundPlayer = $GunSound
 var canShoot = true
 
 func _ready() -> void:
@@ -20,6 +21,8 @@ func _ready() -> void:
 func shoot(direction: Vector2):
     if canShoot:
         ObjectMaker.createBullet(BULLET_TYPE,global_position, SPEED, direction)
+        if BULLET_TYPE == ObjectMaker.BULLET_TYPE.PLAYER:
+            SoundManager.play_sound(gunSoundPlayer, SoundManager.SOUND_LASER)
         canShoot = false
         timer.start()
     

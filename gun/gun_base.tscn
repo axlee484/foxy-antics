@@ -7,4 +7,6 @@ script = ExtResource("1_05ngj")
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="GunSound" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

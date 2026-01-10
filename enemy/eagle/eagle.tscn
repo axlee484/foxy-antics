@@ -64,6 +64,13 @@ wait_time = 3.0
 target_position = Vector2(0, 200)
 collision_mask = 2
 
+[node name="HitBox" parent="." index="5"]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CircleShape2D_iggek")
+
 [node name="EnemyGun" parent="." index="6" instance=ExtResource("4_8cb5y")]
 FIRE_RATE = 1.0
 SPEED = 100

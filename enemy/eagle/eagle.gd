@@ -14,10 +14,6 @@ var isVisibleOnScreen = false
 var flyStarted = false
 
 
-func takeDmage():
-    print("take damage eagle")
-
-
 func seePlayer():
     if !isVisibleOnScreen:
         return

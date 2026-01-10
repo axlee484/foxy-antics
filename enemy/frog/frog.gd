@@ -16,9 +16,6 @@ func startTimer():
 	timer.wait_time = randomTimeOut
 	timer.start()
 
-func takeDamage():
-	health -= 1
-	print("take damage frog, health: ", health)
 
 
 func _ready() -> void:

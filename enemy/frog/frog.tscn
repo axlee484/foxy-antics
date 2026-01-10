@@ -77,10 +77,9 @@ FROG_JUMP_SPEED = Vector2(100, -200)
 [node name="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_npelt")
-animation = &"jump"
+animation = &"idle"
 autoplay = "idle"
-frame = 1
-frame_progress = 1.0
+frame_progress = 0.61282957
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 position = Vector2(-1, 1)
@@ -90,7 +89,7 @@ shape = SubResource("CircleShape2D_2y4cw")
 
 [node name="HitBox" parent="." index="4"]
 collision_layer = 4
-collision_mask = 9
+collision_mask = 8
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(-1, 1)

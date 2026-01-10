@@ -12,6 +12,12 @@ const bullets = {
     enemyBullet = preload("res://bullet/enemyBullet/enemy_bullet.tscn")
 }
 
+const explosionScene = preload("res://characterExplode/character_explode.tscn")
+
+
+func _ready() -> void:
+    SignalManager.on_enemy_hit.connect(createExplosion)
+
 
 
 
@@ -26,7 +32,7 @@ func addBullet(bullet):
 
 
 func createBullet(bulletType: BULLET_TYPE, _position: Vector2, speed: float, direction: Vector2):
-    var bullet
+    var bullet: BulletBase
     match bulletType:
         BULLET_TYPE.PLAYER:
             bullet = bullets.playerBullet.instantiate()
@@ -36,6 +42,20 @@ func createBullet(bulletType: BULLET_TYPE, _position: Vector2, speed: float, dir
     bullet.setup(speed, direction, _position)
     addBullet(bullet)
 
+
+
+
+
+
+
+func addExplosion(explosion):
+    _deferred_addToRoot(explosion)
+
+
+func createExplosion(_points: float, position: Vector2):
+    var explosion:Node2D = explosionScene.instantiate()
+    explosion.global_position = position
+    addExplosion(explosion)
 
     
 

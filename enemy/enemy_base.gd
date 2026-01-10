@@ -17,8 +17,9 @@ var playerRef: Player
 var isAlive = false;
 
 
-func takeDmage():
-	pass
+func takeDamage(area: Area2D):
+	var bullet = area.get_parent()
+	health -= bullet.DAMAGE
 
 
 func _ready() -> void:
@@ -34,6 +35,8 @@ func killOffScreen():
 
 func _physics_process(_delta: float) -> void:
 	killOffScreen()
+	if health <= 0:
+		die()
 
 
 func die():
@@ -49,3 +52,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	pass # Replace with function body.
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	takeDamage(area)
