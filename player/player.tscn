@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqieted5khywp"]
+[gd_scene load_steps=15 format=3 uid="uid://bqieted5khywp"]
 
 [ext_resource type="Texture2D" uid="uid://85iiebstf4s5" path="res://assets/player/player.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://b150v21o6m4x4" path="res://player/player.gd" id="1_rkbax"]
@@ -114,6 +114,44 @@ _data = {
 &"run": SubResource("Animation_g1dw6")
 }
 
+[sub_resource type="Animation" id="Animation_rgyib"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_boad6"]
+resource_name = "invincible"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.30301794),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.14509805), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hg6s5"]
+_data = {
+&"RESET": SubResource("Animation_rgyib"),
+&"invincible": SubResource("Animation_boad6")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_rkbax")
@@ -152,8 +190,8 @@ target_position = Vector2(10, 0)
 target_position = Vector2(-10, 0)
 
 [node name="HitBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 2
+collision_mask = 20
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-5.9604645e-08, 4.7683716e-07)
@@ -162,3 +200,15 @@ shape = SubResource("CapsuleShape2D_oul6g")
 
 [node name="PlayerGun" parent="." instance=ExtResource("3_g1dw6")]
 SPEED = 300
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="InvicibleAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hg6s5")
+}
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

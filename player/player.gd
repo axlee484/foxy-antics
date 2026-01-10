@@ -9,6 +9,9 @@ class_name Player
 @onready var rayCastWallLeft = $RayCastWallLeft
 @onready var rayCastWallRight = $RayCastWallRight
 @onready var gun = $PlayerGun
+@onready var hitbox = $HitBox
+@onready var damageTimer = $DamageTimer
+@onready var invinciblePlayer = $InvicibleAnimationPlayer
 
 
 
@@ -20,11 +23,13 @@ class_name Player
 @export var WALL_JUMP_BOOST = -10
 @export var WALL_PUSH = 800
 @export var MAX_FALL = 400
+@export var MAX_HEALTH = 100
 
 
 
 enum PLAYER_STATES {
 	IDLE,
+	INVINCIBLE,
 	RUNNING,
 	JUMPING,
 	FALLING,
@@ -35,6 +40,8 @@ enum PLAYER_STATES {
 
 var state = PLAYER_STATES.IDLE
 var canDoubleJump = false;
+var health = MAX_HEALTH
+var isInvincible = false
 
 func isTouchingWall():
 	if rayCastWallLeft.is_colliding() or rayCastWallRight.is_colliding():
@@ -53,11 +60,18 @@ func playAnimation():
 			animationPlayer.play("jump")
 		PLAYER_STATES.FALLING:
 			animationPlayer.play("fall")
+		PLAYER_STATES.HURTING:
+			animationPlayer.play("hurt")
 		_:
 			animationPlayer.play("idle")
+	if isInvincible:
+		invinciblePlayer.play("invincible")
+
 
 
 func setState():
+	if state == PLAYER_STATES.HURTING:
+		return
 	if is_on_floor():
 		if velocity.x == 0:
 			state = PLAYER_STATES.IDLE
@@ -82,6 +96,8 @@ func shoot():
 
 
 func getInput() -> void:
+	if state == PLAYER_STATES.HURTING:
+		return
 	velocity.x = 0;
 	if Input.is_action_pressed("left"):
 		if !sprite.flip_h:
@@ -121,6 +137,29 @@ func getInput() -> void:
 
 
 
+func takeEnemyDamage(enemy: EnemyBase):
+	health -= enemy.DAMAGE
+	state = PLAYER_STATES.HURTING
+	velocity.x = 0;
+	print(health)
+
+func takeBulletDamage(bullet: BulletBase):
+	health -= bullet.DAMAGE
+	print(health)
+
+
+func takeDamage(area: Area2D):
+	var areaParent = area.get_parent()
+	isInvincible = true
+	SoundManager.play_sound(soundPlayer, SoundManager.SOUND_DAMAGE)
+	damageTimer.start()
+	if areaParent is BulletBase:
+		takeBulletDamage(areaParent)
+	if areaParent is EnemyBase:
+		takeEnemyDamage(areaParent)
+
+
+
 
 func applyGravity(delta: float) -> void:
 	if is_on_floor():
@@ -143,6 +182,15 @@ func _physics_process(delta: float) -> void:
 
 
 
+
+func takeHealth(healthBoost: float):
+	health += healthBoost
+	print(health)
+
+
+func _ready() -> void:
+	SignalManager.on_fruit_collected.connect(takeHealth)
+
 func updateDebugLabel():
 	var debugStr =  "velocity %s %s \nfloor %s \n%s" % [
 						velocity.x , velocity.y,
@@ -151,3 +199,15 @@ func updateDebugLabel():
 					]
 	debugLabel.text = debugStr;
 	
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	if state == PLAYER_STATES.HURTING or isInvincible:
+		return
+	takeDamage(area)
+
+
+func _on_damage_timer_timeout() -> void:
+	state = PLAYER_STATES.IDLE
+	invinciblePlayer.stop()
+	isInvincible = false

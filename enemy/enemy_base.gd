@@ -9,7 +9,7 @@ enum FACE_DIRECTION {LEFT = -1, RIGHT = 1}
 @export var GRAVITY = 800
 @export var FALLEN_OFF_POSITION_Y = 8000
 @export var FACING: FACE_DIRECTION = FACE_DIRECTION.LEFT
-@export var ATTACK = 1
+@export var DAMAGE = 1
 @export var MAX_HEALTH = 1
 
 var health = MAX_HEALTH

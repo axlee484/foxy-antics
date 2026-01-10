@@ -13,10 +13,12 @@ const bullets = {
 }
 
 const explosionScene = preload("res://characterExplode/character_explode.tscn")
+const fruitScene = preload("res://fruit/fruit.tscn")
 
 
 func _ready() -> void:
     SignalManager.on_enemy_hit.connect(createExplosion)
+    SignalManager.on_enemy_hit.connect(createFruit)
 
 
 
@@ -46,8 +48,6 @@ func createBullet(bulletType: BULLET_TYPE, _position: Vector2, speed: float, dir
 
 
 
-
-
 func addExplosion(explosion):
     _deferred_addToRoot(explosion)
 
@@ -57,5 +57,13 @@ func createExplosion(_points: float, position: Vector2):
     explosion.global_position = position
     addExplosion(explosion)
 
-    
 
+
+func addFruit(fruit):
+    _deferred_addToRoot(fruit)
+
+
+func createFruit(_points: float, position: Vector2):
+    var fruit:Fruit = fruitScene.instantiate()
+    fruit.global_position = position
+    addFruit(fruit)
