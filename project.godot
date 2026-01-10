@@ -64,6 +64,8 @@ fall={
 2d_physics/layer_1="world"
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemy"
+2d_physics/layer_4="player_bullet"
+2d_physics/layer_5="enemy_bullet"
 
 [rendering]
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3w2yh2s1jjvi"]
+[gd_scene load_steps=11 format=3 uid="uid://c3w2yh2s1jjvi"]
 
 [ext_resource type="PackedScene" uid="uid://3jnbr0va4622" path="res://enemy/enemy_base.tscn" id="1_riskr"]
 [ext_resource type="Texture2D" uid="uid://cnbti304usfk7" path="res://assets/enemies/eagle/eagle-attack.png" id="2_iggek"]
 [ext_resource type="Script" uid="uid://bm1msjm66qpko" path="res://enemy/eagle/eagle.gd" id="2_sb8w0"]
+[ext_resource type="PackedScene" uid="uid://3mo2j7fyupuc" path="res://gun/enemyGun/enemy_gun.tscn" id="4_8cb5y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sb8w0"]
 atlas = ExtResource("2_iggek")
@@ -62,5 +63,9 @@ wait_time = 3.0
 [node name="DetectPlayerRayCast" type="RayCast2D" parent="." index="4"]
 target_position = Vector2(0, 200)
 collision_mask = 2
+
+[node name="EnemyGun" parent="." index="6" instance=ExtResource("4_8cb5y")]
+FIRE_RATE = 1.0
+SPEED = 100
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
