@@ -19,7 +19,7 @@ var isAlive = false;
 
 func takeDamage(area: Area2D):
 	var bullet = area.get_parent()
-	health -= bullet.DAMAGE
+	health -= bullet.damage
 
 
 func _ready() -> void:
@@ -31,7 +31,6 @@ func _ready() -> void:
 func killOffScreen():
 	if global_position.y > FALLEN_OFF_POSITION_Y:
 		queue_free()
-		print("died")
 
 func _physics_process(_delta: float) -> void:
 	killOffScreen()

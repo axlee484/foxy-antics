@@ -516,7 +516,7 @@ script = ExtResource("1_yxtga")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cinyg")
 animation = &"cherry"
-frame_progress = 0.8856696
+frame_progress = 0.1304259
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tjxl6")

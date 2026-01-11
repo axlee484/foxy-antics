@@ -141,12 +141,16 @@ func takeEnemyDamage(enemy: EnemyBase):
 	health -= enemy.DAMAGE
 	state = PLAYER_STATES.HURTING
 	velocity.x = 0;
-	print(health)
 
 func takeBulletDamage(bullet: BulletBase):
-	health -= bullet.DAMAGE
-	print(health)
+	health -= bullet.damage
+	state = PLAYER_STATES.HURTING
+	velocity.x = 0;
 
+func takeBossDamage(boss: Boss):
+	health -= boss.DAMAGE
+	state = PLAYER_STATES.HURTING
+	velocity.x = 0;
 
 func takeDamage(area: Area2D):
 	var areaParent = area.get_parent()
@@ -157,6 +161,8 @@ func takeDamage(area: Area2D):
 		takeBulletDamage(areaParent)
 	if areaParent is EnemyBase:
 		takeEnemyDamage(areaParent)
+	elif areaParent.get_parent() is Boss:
+		takeBossDamage(areaParent.get_parent())
 
 
 
@@ -185,17 +191,17 @@ func _physics_process(delta: float) -> void:
 
 func takeHealth(healthBoost: float):
 	health += healthBoost
-	print(health)
 
 
 func _ready() -> void:
 	SignalManager.on_fruit_collected.connect(takeHealth)
 
 func updateDebugLabel():
-	var debugStr =  "velocity %s %s \nfloor %s \n%s" % [
+	var debugStr =  "velocity %s %s \nfloor %s \n%s\nhealth %s" % [
 						velocity.x , velocity.y,
 						is_on_floor(),
-						PLAYER_STATES.keys()[state]
+						PLAYER_STATES.keys()[state],
+						health
 					]
 	debugLabel.text = debugStr;
 	

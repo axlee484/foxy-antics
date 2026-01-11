@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://fh8b7nmivlgv" path="res://bullet/bullet_base.tscn" id="1_pjq2f"]
 
 [node name="PlayerBullet" instance=ExtResource("1_pjq2f")]
+MAX_DAMAGE = 20.0
 
 [node name="Area2D" parent="." index="1"]
 collision_layer = 8
