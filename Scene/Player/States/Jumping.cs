@@ -20,9 +20,11 @@ public partial class Jumping : PlayerState
     {
         var xInput = Input.GetAxis("left", "right");
         Player.Velocity = new Vector2(xInput * Player.SPEED, Player.Velocity.Y);
-        if (Player.IsOnFloor())
+        if (xInput != 0)
+            animatedSprite2D.FlipH = xInput < 0;
+        if (Player.Velocity.Y >= 0)
         {
-            EmitSignal(State.SignalName.ChangeState, "Idle");
+            EmitSignal(State.SignalName.ChangeState, "Falling");
             return;
         }
     }
@@ -31,7 +33,11 @@ public partial class Jumping : PlayerState
         animatedSprite2D = Player.animatedSprite2D;
 
         if (Player.IsOnFloor()) jumpsLeft = Player.MAX_JUMPS_AVAILABLE;
-        if (jumpsLeft <= 0) return;
+        if (jumpsLeft == 0)
+        {
+            EmitSignal(State.SignalName.ChangeState, "Falling");
+            return;
+        }
 
         Player.Velocity = new Vector2(0, Player.JUMP_FORCE);
         jumpsLeft--;

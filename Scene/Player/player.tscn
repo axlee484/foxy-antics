@@ -8,8 +8,7 @@
 [ext_resource type="Script" uid="uid://dy0qe7djjlafb" path="res://Scene/Player/States/Moving.cs" id="5_jd8gp"]
 [ext_resource type="Script" uid="uid://ckwh8brfhxxq0" path="res://Scene/Player/States/Falling.cs" id="6_2x3rd"]
 [ext_resource type="Script" uid="uid://bwhgmgi42yq8y" path="res://Scene/Player/States/Jumping.cs" id="6_ewflj"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_osfpg"]
+[ext_resource type="PackedScene" uid="uid://d2dankcwh471f" path="res://Scene/player_camera.tscn" id="9_usf6g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jd8gp"]
 atlas = ExtResource("5_88wa8")
@@ -19,15 +18,19 @@ region = Rect2(297, 0, 33, 32)
 atlas = ExtResource("5_88wa8")
 region = Rect2(330, 0, 33, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2x3rd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_usf6g"]
+atlas = ExtResource("5_88wa8")
+region = Rect2(594, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b00hk"]
 atlas = ExtResource("5_88wa8")
 region = Rect2(198, 0, 33, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_usf6g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmsua"]
 atlas = ExtResource("5_88wa8")
 region = Rect2(231, 0, 33, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b00hk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjja4"]
 atlas = ExtResource("5_88wa8")
 region = Rect2(264, 0, 33, 32)
 
@@ -102,17 +105,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2x3rd")
+"texture": SubResource("AtlasTexture_usf6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usf6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usf6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usf6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usf6g")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_usf6g")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b00hk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmsua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjja4")
 }],
-"loop": 1,
+"loop": 2,
 "name": &"fall",
-"speed": 10.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -177,8 +198,18 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_osfpg"]
+radius = 11.249996
+height = 26.315754
+
 [node name="Player" type="CharacterBody2D" unique_id=1283238667]
+collision_mask = 2
 script = ExtResource("1_uuj77")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1694323178]
+sprite_frames = SubResource("SpriteFrames_osfpg")
+animation = &"fall"
+frame_progress = 0.6312225
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=456178534]
 position = Vector2(-1, 4)
@@ -200,10 +231,6 @@ script = ExtResource("6_2x3rd")
 [node name="Jumping" parent="StateMachine" unique_id=716849486 instance=ExtResource("2_yic5t")]
 script = ExtResource("6_ewflj")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1694323178]
-sprite_frames = SubResource("SpriteFrames_osfpg")
-animation = &"jump"
-
 [node name="DebugLabel" type="Label" parent="." unique_id=234022041]
 offset_left = -8.0
 offset_top = -31.0
@@ -216,3 +243,5 @@ text = "s
 s
 s
 s"
+
+[node name="PlayerCamera" parent="." unique_id=798587801 instance=ExtResource("9_usf6g")]

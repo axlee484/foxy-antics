@@ -24,6 +24,8 @@ public partial class Falling : PlayerState
     {
         var xInput = Input.GetAxis("left", "right");
         Player.Velocity = new Vector2(xInput * Player.SPEED, Player.Velocity.Y);
+        if (xInput != 0)
+            animatedSprite2D.FlipH = xInput < 0;
         if (Player.IsOnFloor())
         {
             EmitSignal(State.SignalName.ChangeState, "Idle");

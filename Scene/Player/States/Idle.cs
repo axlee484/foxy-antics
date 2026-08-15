@@ -38,4 +38,5 @@ public partial class Idle : PlayerState
             EmitSignal(State.SignalName.ChangeState, "Jumping");
         }
     }
+
 }
