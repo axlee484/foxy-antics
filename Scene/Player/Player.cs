@@ -6,10 +6,13 @@ public partial class Player : CharacterBody2D
     private StateMachine stateMachine;
     public AnimatedSprite2D animatedSprite2D;
     private Label debugLabel;
-    [Export] public float GRAVITY = 980.0f;
-    [Export] public float JUMP_FORCE = -400.0f;
-    [Export] public int MAX_JUMPS_AVAILABLE = 2;
-    [Export] public float SPEED = 100.0f;
+    [Export] public float Gravity = 980.0f;
+    [Export] public float JumpForce = -400.0f;
+    [Export] public int MaxJumpsAvailable = 2;
+    [Export] public float Speed = 100.0f;
+    [Export] public HealthComponent HealthComponent;
+    [Export] public HurtBoxComponent HurtBoxComponent;
+    [Export] public HitBoxComponent HitBoxComponent;
     public int jumpsLeft = 0;
 
     public override void _Ready()
@@ -18,13 +21,13 @@ public partial class Player : CharacterBody2D
         stateMachine = GetNode<StateMachine>("StateMachine");
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         debugLabel = GetNode<Label>("DebugLabel");
-
-
+        HurtBoxComponent.DamageTaken += HealthComponent.TakeDamage;
+        HealthComponent.Died += OnDie;
         stateMachine.Start();
     }
     private void ApplyGravity(double delta)
     {
-        Velocity += new Vector2(0, GRAVITY * (float)delta);
+        Velocity += new Vector2(0, Gravity * (float)delta);
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -35,6 +38,11 @@ public partial class Player : CharacterBody2D
     public override void _Process(double delta)
     {
         Debug();
+    }
+
+    public void OnDie()
+    {
+        QueueFree();
     }
 
 

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://r0gkq766s7cc"]
+
+[ext_resource type="Script" uid="uid://dpn0wkvidbbk7" path="res://Component/HurtBoxComponent/HurtBoxComponent.cs" id="1_pwvcc"]
+
+[node name="HurtBoxComponent" type="Area2D" unique_id=1378567243]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_pwvcc")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]

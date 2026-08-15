@@ -59,6 +59,11 @@ attack={
 
 2d_physics/layer_1="playerBody"
 2d_physics/layer_2="platform"
+2d_physics/layer_3="playerHitBox"
+2d_physics/layer_4="playerHurtBox"
+2d_physics/layer_5="enemyHitBox"
+2d_physics/layer_6="enemyHurtBox"
+2d_physics/layer_7="trapHitBox"
 
 [physics]
 

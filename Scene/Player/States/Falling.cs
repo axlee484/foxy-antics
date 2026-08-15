@@ -23,7 +23,7 @@ public partial class Falling : PlayerState
     public override void PhysicsProcess(double delta)
     {
         var xInput = Input.GetAxis("left", "right");
-        Player.Velocity = new Vector2(xInput * Player.SPEED, Player.Velocity.Y);
+        Player.Velocity = new Vector2(xInput * Player.Speed, Player.Velocity.Y);
         if (xInput != 0)
             animatedSprite2D.FlipH = xInput < 0;
         if (Player.IsOnFloor())

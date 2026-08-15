@@ -9,7 +9,10 @@
 [ext_resource type="Script" uid="uid://ckwh8brfhxxq0" path="res://Scene/Player/States/Falling.cs" id="6_2x3rd"]
 [ext_resource type="Script" uid="uid://bwhgmgi42yq8y" path="res://Scene/Player/States/Jumping.cs" id="6_ewflj"]
 [ext_resource type="Script" uid="uid://c844hx3u652py" path="res://Scene/Player/States/Hurting.cs" id="9_b00hk"]
-[ext_resource type="PackedScene" uid="uid://d2dankcwh471f" path="res://Scene/player_camera.tscn" id="9_usf6g"]
+[ext_resource type="PackedScene" uid="uid://cffpc67twbnxg" path="res://Component/HealthComponent/health_component.tscn" id="11_hklmv"]
+[ext_resource type="PackedScene" uid="uid://b3iop212mu1ve" path="res://Component/HitBoxComponent/hit_box_component.tscn" id="12_wagb4"]
+[ext_resource type="PackedScene" uid="uid://r0gkq766s7cc" path="res://Component/HurtBoxComponent/hurt_box_component.tscn" id="13_fst78"]
+[ext_resource type="PackedScene" uid="uid://csxgd57h70qbs" path="res://Scene/PlayerCamera/player_camera.tscn" id="13_rkjca"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jd8gp"]
 atlas = ExtResource("5_88wa8")
@@ -203,14 +206,17 @@ animations = [{
 radius = 11.249996
 height = 26.315754
 
-[node name="Player" type="CharacterBody2D" unique_id=1283238667]
+[node name="Player" type="CharacterBody2D" unique_id=1283238667 node_paths=PackedStringArray("HealthComponent", "HurtBoxComponent", "HitBoxComponent")]
 collision_mask = 2
 script = ExtResource("1_uuj77")
+HealthComponent = NodePath("HealthComponent")
+HurtBoxComponent = NodePath("HurtBoxComponent")
+HitBoxComponent = NodePath("HitBoxComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1694323178]
 sprite_frames = SubResource("SpriteFrames_osfpg")
-animation = &"fall"
-frame_progress = 0.42537546
+animation = &"hurt"
+frame_progress = 0.6405235
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=456178534]
 position = Vector2(-1, 4)
@@ -248,12 +254,23 @@ s
 s
 s"
 
-[node name="PlayerCamera" parent="." unique_id=798587801 instance=ExtResource("9_usf6g")]
+[node name="HealthComponent" parent="." unique_id=996060523 instance=ExtResource("11_hklmv")]
 
-[node name="HurtBox" type="Area2D" parent="." unique_id=814274953]
+[node name="HitBoxComponent" parent="." unique_id=479108143 instance=ExtResource("12_wagb4")]
+collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=3159004]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" unique_id=1973707908]
 position = Vector2(-1, 4)
 scale = Vector2(0.8000003, 0.760001)
 shape = SubResource("CapsuleShape2D_osfpg")
-debug_color = Color(0.4628225, 0.4762841, 0.91702634, 0.41960785)
+
+[node name="HurtBoxComponent" parent="." unique_id=1378567243 instance=ExtResource("13_fst78")]
+collision_layer = 8
+collision_mask = 80
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent" unique_id=2040760039]
+position = Vector2(-1, 4)
+scale = Vector2(0.8000003, 0.760001)
+shape = SubResource("CapsuleShape2D_osfpg")
+
+[node name="PlayerCamera" parent="." unique_id=798587801 instance=ExtResource("13_rkjca")]

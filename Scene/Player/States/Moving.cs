@@ -33,7 +33,7 @@ public partial class Moving : PlayerState
         if (input > 0) animatedSprite2D.FlipH = false;
         else animatedSprite2D.FlipH = true;
 
-        var velocity = new Vector2(Player.SPEED * input, Player.Velocity.Y);
+        var velocity = new Vector2(Player.Speed * input, Player.Velocity.Y);
         Player.Velocity = velocity;
     }
 

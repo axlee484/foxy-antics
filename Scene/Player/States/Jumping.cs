@@ -18,7 +18,7 @@ public partial class Jumping : PlayerState
     public override void PhysicsProcess(double delta)
     {
         var xInput = Input.GetAxis("left", "right");
-        Player.Velocity = new Vector2(xInput * Player.SPEED, Player.Velocity.Y);
+        Player.Velocity = new Vector2(xInput * Player.Speed, Player.Velocity.Y);
         if (xInput != 0)
             animatedSprite2D.FlipH = xInput < 0;
         if (Player.Velocity.Y >= 0)
@@ -37,7 +37,7 @@ public partial class Jumping : PlayerState
             return;
         }
 
-        Player.Velocity = new Vector2(Player.Velocity.X, Player.JUMP_FORCE);
+        Player.Velocity = new Vector2(Player.Velocity.X, Player.JumpForce);
         Player.jumpsLeft--;
 
         PlayJumpingAnimation();
