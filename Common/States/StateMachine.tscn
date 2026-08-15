@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d3mhnhgxptj4t"]
+
+[ext_resource type="Script" uid="uid://cq4qskdne1luo" path="res://Common/States/StateMachine.cs" id="1_dcch1"]
+
+[node name="StateMachine" type="Node" unique_id=68702165]
+script = ExtResource("1_dcch1")
