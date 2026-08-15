@@ -24,6 +24,12 @@ public partial class Moving : PlayerState
             Player.Velocity = new Vector2(0, Player.Velocity.Y);
             return;
         }
+
+        if (!Player.IsOnFloor())
+        {
+            EmitSignal(State.SignalName.ChangeState, "Falling");
+            return;
+        }
         if (input > 0) animatedSprite2D.FlipH = false;
         else animatedSprite2D.FlipH = true;
 

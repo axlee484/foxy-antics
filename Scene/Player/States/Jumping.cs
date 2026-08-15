@@ -5,7 +5,6 @@ public partial class Jumping : PlayerState
 {
     private AnimatedSprite2D animatedSprite2D;
 
-    private int jumpsLeft;
     private void PlayJumpingAnimation()
     {
         animatedSprite2D.Play("jump");
@@ -32,15 +31,14 @@ public partial class Jumping : PlayerState
     {
         animatedSprite2D = Player.animatedSprite2D;
 
-        if (Player.IsOnFloor()) jumpsLeft = Player.MAX_JUMPS_AVAILABLE;
-        if (jumpsLeft == 0)
+        if (Player.jumpsLeft == 0)
         {
             EmitSignal(State.SignalName.ChangeState, "Falling");
             return;
         }
 
-        Player.Velocity = new Vector2(0, Player.JUMP_FORCE);
-        jumpsLeft--;
+        Player.Velocity = new Vector2(Player.Velocity.X, Player.JUMP_FORCE);
+        Player.jumpsLeft--;
 
         PlayJumpingAnimation();
     }

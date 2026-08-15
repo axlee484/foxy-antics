@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dy0qe7djjlafb" path="res://Scene/Player/States/Moving.cs" id="5_jd8gp"]
 [ext_resource type="Script" uid="uid://ckwh8brfhxxq0" path="res://Scene/Player/States/Falling.cs" id="6_2x3rd"]
 [ext_resource type="Script" uid="uid://bwhgmgi42yq8y" path="res://Scene/Player/States/Jumping.cs" id="6_ewflj"]
+[ext_resource type="Script" uid="uid://c844hx3u652py" path="res://Scene/Player/States/Hurting.cs" id="9_b00hk"]
 [ext_resource type="PackedScene" uid="uid://d2dankcwh471f" path="res://Scene/player_camera.tscn" id="9_usf6g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jd8gp"]
@@ -209,7 +210,7 @@ script = ExtResource("1_uuj77")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1694323178]
 sprite_frames = SubResource("SpriteFrames_osfpg")
 animation = &"fall"
-frame_progress = 0.6312225
+frame_progress = 0.42537546
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=456178534]
 position = Vector2(-1, 4)
@@ -231,6 +232,9 @@ script = ExtResource("6_2x3rd")
 [node name="Jumping" parent="StateMachine" unique_id=716849486 instance=ExtResource("2_yic5t")]
 script = ExtResource("6_ewflj")
 
+[node name="Hurting" parent="StateMachine" unique_id=611840501 instance=ExtResource("2_yic5t")]
+script = ExtResource("9_b00hk")
+
 [node name="DebugLabel" type="Label" parent="." unique_id=234022041]
 offset_left = -8.0
 offset_top = -31.0
@@ -245,3 +249,11 @@ s
 s"
 
 [node name="PlayerCamera" parent="." unique_id=798587801 instance=ExtResource("9_usf6g")]
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=814274953]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=3159004]
+position = Vector2(-1, 4)
+scale = Vector2(0.8000003, 0.760001)
+shape = SubResource("CapsuleShape2D_osfpg")
+debug_color = Color(0.4628225, 0.4762841, 0.91702634, 0.41960785)

@@ -12,6 +12,7 @@ public partial class Idle : PlayerState
     public override void Enter()
     {
         animatedSprite2D = Player.animatedSprite2D;
+        Player.jumpsLeft = Player.MAX_JUMPS_AVAILABLE;
         PlayIdleAnimation();
     }
 

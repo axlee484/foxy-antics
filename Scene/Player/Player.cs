@@ -10,6 +10,7 @@ public partial class Player : CharacterBody2D
     [Export] public float JUMP_FORCE = -400.0f;
     [Export] public int MAX_JUMPS_AVAILABLE = 2;
     [Export] public float SPEED = 100.0f;
+    public int jumpsLeft = 0;
 
     public override void _Ready()
     {
