@@ -206,6 +206,43 @@ animations = [{
 radius = 11.249996
 height = 26.315754
 
+[sub_resource type="Animation" id="Animation_fst78"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rkjca"]
+resource_name = "hurt"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.8768576, 0.27482444, 0.63555294, 1), Color(0.44521552, 0.5973693, 0.40439093, 1), Color(0.4364022, 0.49244297, 0.95984024, 1), Color(0.89659905, 0.9158862, 0.9945981, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y7m07"]
+_data = {
+&"RESET": SubResource("Animation_fst78"),
+&"hurt": SubResource("Animation_rkjca")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=1283238667 node_paths=PackedStringArray("HealthComponent", "HurtBoxComponent", "HitBoxComponent")]
 collision_mask = 2
 script = ExtResource("1_uuj77")
@@ -274,3 +311,6 @@ scale = Vector2(0.8000003, 0.760001)
 shape = SubResource("CapsuleShape2D_osfpg")
 
 [node name="PlayerCamera" parent="." unique_id=798587801 instance=ExtResource("13_rkjca")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=206692637]
+libraries/ = SubResource("AnimationLibrary_y7m07")

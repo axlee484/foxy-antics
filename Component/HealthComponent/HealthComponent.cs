@@ -18,7 +18,6 @@ public partial class HealthComponent : Node
         {
             currentHealth = 0;
             EmitSignal(SignalName.Died);
-
         }
     }
     public void Heal(int amount)

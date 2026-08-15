@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://2x11jamnw1vi"]
+
+[ext_resource type="PackedScene" uid="uid://b3iop212mu1ve" path="res://Component/HitBoxComponent/hit_box_component.tscn" id="1_5g7gl"]
+[ext_resource type="Texture2D" uid="uid://c74cxgknsuwd4" path="res://assets/items/floor_spikes.png" id="2_1bdg0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bdg0"]
+
+[node name="Spike" type="Node2D" unique_id=1345060822]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1745100392]
+texture = ExtResource("2_1bdg0")
+
+[node name="HitBoxComponent" parent="." unique_id=479108143 instance=ExtResource("1_5g7gl")]
+collision_layer = 64
+collision_mask = 8
+Damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" unique_id=832533756]
+shape = SubResource("RectangleShape2D_1bdg0")
