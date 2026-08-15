@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c7n45icb7vmtu"]
+
+[ext_resource type="Texture2D" uid="uid://cw144mn2n18vh" path="res://assets/tiles/industrial.png" id="1_3iaii"]
+[ext_resource type="PackedScene" uid="uid://bst1v47axi613" path="res://Scene/Player/player.tscn" id="2_7x4ns"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7x4ns"]
+
+[node name="BaseLevel" type="Node2D" unique_id=752529211]
+
+[node name="Player" parent="." unique_id=1283238667 instance=ExtResource("2_7x4ns")]
+position = Vector2(62, 53)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1567037206]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=570083296]
+position = Vector2(94, 226)
+shape = SubResource("WorldBoundaryShape2D_7x4ns")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=143183512]
+position = Vector2(402.75, 386.5)
+scale = Vector2(2.6221123, 2.4469697)
+texture = ExtResource("1_3iaii")

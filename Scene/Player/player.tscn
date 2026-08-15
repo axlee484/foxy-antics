@@ -5,6 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://db5d86vyb5w2w" path="res://Common/States/State.tscn" id="2_yic5t"]
 [ext_resource type="Script" uid="uid://dr317fre6sexe" path="res://Scene/Player/States/Idle.cs" id="4_g0r71"]
 [ext_resource type="Texture2D" uid="uid://kduxgf7wgu6q" path="res://assets/player/player.png" id="5_88wa8"]
+[ext_resource type="Script" uid="uid://dy0qe7djjlafb" path="res://Scene/Player/States/Moving.cs" id="5_jd8gp"]
+[ext_resource type="Script" uid="uid://ckwh8brfhxxq0" path="res://Scene/Player/States/Falling.cs" id="6_2x3rd"]
+[ext_resource type="Script" uid="uid://bwhgmgi42yq8y" path="res://Scene/Player/States/Jumping.cs" id="6_ewflj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_osfpg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jd8gp"]
 atlas = ExtResource("5_88wa8")
@@ -144,7 +149,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gfwal")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -175,6 +180,11 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1283238667]
 script = ExtResource("1_uuj77")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=456178534]
+position = Vector2(-1, 4)
+scale = Vector2(0.8000003, 0.760001)
+shape = SubResource("CapsuleShape2D_osfpg")
+
 [node name="StateMachine" parent="." unique_id=68702165 node_paths=PackedStringArray("initialState") instance=ExtResource("1_67a6e")]
 initialState = NodePath("Idle")
 
@@ -182,8 +192,27 @@ initialState = NodePath("Idle")
 script = ExtResource("4_g0r71")
 
 [node name="Moving" parent="StateMachine" unique_id=1357751584 instance=ExtResource("2_yic5t")]
+script = ExtResource("5_jd8gp")
+
+[node name="Falling" parent="StateMachine" unique_id=210701380 instance=ExtResource("2_yic5t")]
+script = ExtResource("6_2x3rd")
+
+[node name="Jumping" parent="StateMachine" unique_id=716849486 instance=ExtResource("2_yic5t")]
+script = ExtResource("6_ewflj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1694323178]
 sprite_frames = SubResource("SpriteFrames_osfpg")
-animation = &"idle"
-frame_progress = 0.5783601
+animation = &"jump"
+
+[node name="DebugLabel" type="Label" parent="." unique_id=234022041]
+offset_left = -8.0
+offset_top = -31.0
+offset_right = 32.0
+offset_bottom = -8.0
+theme_override_constants/line_spacing = 0
+theme_override_constants/paragraph_spacing = -2
+theme_override_font_sizes/font_size = 8
+text = "s
+s
+s
+s"

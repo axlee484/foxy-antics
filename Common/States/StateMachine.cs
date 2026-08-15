@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public partial class StateMachine : Node
 {
     [Export] public State initialState;
-    private State currentState;
+    public State currentState;
     private readonly Dictionary<string, State> states = [];
     public override void _Ready()
     {
@@ -38,5 +38,9 @@ public partial class StateMachine : Node
         currentState.Exit();
         currentState = states[newState];
         currentState.Enter();
+    }
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        currentState.HandleInput(@event);
     }
 }
